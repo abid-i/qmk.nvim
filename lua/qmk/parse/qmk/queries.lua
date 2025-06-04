@@ -61,14 +61,21 @@ function M.declaration_visitor(root, visitors) --
 	---get the entire keymap declaration
 	---the intention is to use this for identifying the start and end
 	---@type vim.treesitter.Query
+	--- (init_declarator
+---    declarator: (array_declarator
+---         declarator: (array_declarator
+---            declarator: (array_declarator
+--- 		declarator: (identifier) @id (#eq? @id "keymaps"))))
+---     value: (initializer_list) @declaration)
+--- ]]
 	local keymap_declaration_query = parse_query(
-		'c',
+		'c',	
 		[[
 (init_declarator
     declarator: (array_declarator
         declarator: (array_declarator
             declarator: (array_declarator
-		declarator: (identifier) @id (#eq? @id "keymaps"))))
+                declarator: (identifier))))
     value: (initializer_list) @declaration)
 ]]
 	)
